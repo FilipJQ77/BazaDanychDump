@@ -3,7 +3,7 @@ CREATE OR REPLACE VIEW `athlete_track_results` AS
         a.first_name AS "Imie",
         a.last_name AS "Nazwisko",
         c.c_name AS "Klub",
-        s.discipline_id AS "Dyscyplina",
+        d.discipline AS "Dyscyplina",
         t.result AS "Wynik",
         m.m_date AS "Data",
         ar.arena_id AS "Stadion",
@@ -17,6 +17,7 @@ CREATE OR REPLACE VIEW `athlete_track_results` AS
         JOIN athletes a ON a.athlete_id = t.athlete_id
         JOIN clubs c ON c.club_id = a.club_id
         JOIN series s ON s.series_id = t.series_id
+		JOIN disciplines d ON d.discipline_id = s.discipline_id
         JOIN meetings m ON m.meeting_id = s.meeting_id
         JOIN arenas ar ON ar.arena_id = m.arena_id
         JOIN ranks r ON m.rank_id = r.rank_id;
@@ -26,12 +27,12 @@ CREATE OR REPLACE VIEW `athlete_jump_results` AS
         a.first_name AS "Imie",
         a.last_name AS "Nazwisko",
         c.c_name AS "Klub",
-        s.discipline_id AS "Dyscyplina",
+        d.discipline AS "Dyscyplina",
         j.result AS "Wynik",
         m.m_date AS "Data",
         ar.arena_id AS "Stadion",
         ar.city AS "Stadion_miasto",
-        ar.country AS "Stadion_kraj",
+		ar.country AS "Stadion_kraj",
         r.rank_description AS "Ranga",
         m.m_description AS "Event",
         s.s_type AS "Seria"
@@ -40,6 +41,7 @@ CREATE OR REPLACE VIEW `athlete_jump_results` AS
         JOIN athletes a ON a.athlete_id = j.athlete_id
         JOIN clubs c ON c.club_id = a.club_id
         JOIN series s ON s.series_id = j.series_id
+		JOIN disciplines d ON d.discipline_id = s.discipline_id
         JOIN meetings m ON m.meeting_id = s.meeting_id
         JOIN arenas ar ON ar.arena_id = m.arena_id
         JOIN ranks r ON m.rank_id = r.rank_id;
