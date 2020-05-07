@@ -6,8 +6,9 @@ CREATE OR REPLACE VIEW `athlete_track_results` AS
         s.discipline_id AS "Dyscyplina",
         t.result AS "Wynik",
         m.m_date AS "Data",
-        ar.country AS "Stadion - kraj",
-        ar.city AS "Stadion - miasto",
+        ar.arena_id AS "Stadion",
+        ar.city AS "Stadion_miasto",
+		ar.country AS "Stadion_kraj",
         r.rank_description AS "Ranga",
         m.m_description AS "Event",
         s.s_type AS "Seria"
@@ -18,7 +19,7 @@ CREATE OR REPLACE VIEW `athlete_track_results` AS
         JOIN series s ON s.series_id = t.series_id
         JOIN meetings m ON m.meeting_id = s.meeting_id
         JOIN arenas ar ON ar.arena_id = m.arena_id
-        JOIN ranks r ON m.rank_id = r.rank_id
+        JOIN ranks r ON m.rank_id = r.rank_id;
 		
 CREATE OR REPLACE VIEW `athlete_jump_results` AS
     SELECT 
@@ -28,8 +29,9 @@ CREATE OR REPLACE VIEW `athlete_jump_results` AS
         s.discipline_id AS "Dyscyplina",
         j.result AS "Wynik",
         m.m_date AS "Data",
-        ar.country AS "Stadion - kraj",
-        ar.city AS "Stadion - miasto",
+        ar.arena_id AS "Stadion",
+        ar.city AS "Stadion_miasto",
+        ar.country AS "Stadion_kraj",
         r.rank_description AS "Ranga",
         m.m_description AS "Event",
         s.s_type AS "Seria"
@@ -40,4 +42,42 @@ CREATE OR REPLACE VIEW `athlete_jump_results` AS
         JOIN series s ON s.series_id = j.series_id
         JOIN meetings m ON m.meeting_id = s.meeting_id
         JOIN arenas ar ON ar.arena_id = m.arena_id
-        JOIN ranks r ON m.rank_id = r.rank_id
+        JOIN ranks r ON m.rank_id = r.rank_id;
+		
+CREATE OR REPLACE VIEW `track_records` AS
+	SELECT
+		Dyscyplina,
+		MIN(Wynik),
+		Imie,
+		Nazwisko,
+		Klub,
+		Data,
+		Stadion,
+		Stadion_miasto,
+		Stadion_kraj,
+		Ranga,
+		Event,
+		Seria
+	FROM 
+		athlete_track_results
+	GROUP BY
+		Dyscyplina;
+		
+CREATE OR REPLACE VIEW `jump_records` AS
+	SELECT
+		Dyscyplina,
+		MAX(Wynik),
+		Imie,
+		Nazwisko,
+		Klub,
+		Data,
+		Stadion,
+		Stadion_miasto,
+		Stadion_kraj,
+		Ranga,
+		Event,
+		Seria
+	FROM 
+		athlete_jump_results
+	GROUP BY
+		Dyscyplina;
