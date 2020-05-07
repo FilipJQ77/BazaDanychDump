@@ -64,11 +64,11 @@ CREATE TABLE meetings (
   );
   
   CREATE TABLE jump_results (
-  jump_results_id 	int NOT NULL AUTO_INCREMENT,
+  jump_result_id 	int NOT NULL AUTO_INCREMENT,
   athlete_id 	int NOT NULL,
   series_id 	int NOT NULL,
   result 		decimal(5,3),
-  PRIMARY KEY(jump_results_id),
+  PRIMARY KEY(jump_result_id),
   FOREIGN KEY (athlete_id) REFERENCES athletes(athlete_id),
   FOREIGN KEY (series_id) REFERENCES series(series_id)
   );
