@@ -19,7 +19,8 @@ CREATE TABLE clubs (
 );
 
 CREATE TABLE disciplines (
-  discipline_id          varchar(255) NOT NULL, 
+  discipline_id    int NOT NULL AUTO_INCREMENT, 
+  discipline varchar(255) NOT NULL,
   sex         enum('male','female') NOT NULL,
   d_description varchar(1024) NOT NULL, 
   PRIMARY KEY (discipline_id));
@@ -55,7 +56,7 @@ CREATE TABLE meetings (
   
   CREATE TABLE series (
   series_id       int NOT NULL AUTO_INCREMENT, 
-  discipline_id   varchar(255) NOT NULL, 
+  discipline_id   int NOT NULL, 
   meeting_id      int NOT NULL, 
   s_type		  enum('final','semi-final','quarter-final','1/8','1/16','elimination') NOT NULL,
   PRIMARY KEY (series_id),
@@ -86,7 +87,7 @@ CREATE TABLE meetings (
   CREATE TABLE signups (
   athlete_id		int NOT NULL,
   meeting_id		int NOT NULL,
-  discipline_id	 	varchar(255) NOT NULL,
+  discipline_id	 	int NOT NULL,
   PRIMARY KEY(athlete_id, meeting_id, discipline_id),
   FOREIGN KEY (athlete_id) REFERENCES athletes(athlete_id),
   FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id),
@@ -95,7 +96,7 @@ CREATE TABLE meetings (
   
   CREATE TABLE limits (
   meeting_id 		int NOT NULL,
-  discipline_id 	varchar(255) NOT NULL,
+  discipline_id 	int NOT NULL,
   track_res 		time(3),
   jump_res 			decimal(5,3),
   PRIMARY KEY(meeting_id, discipline_id),
