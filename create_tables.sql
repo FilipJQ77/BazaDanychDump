@@ -1,105 +1,106 @@
 CREATE TABLE clubs (
-  id      	int NOT NULL AUTO_INCREMENT, 
+  club_id      	int NOT NULL AUTO_INCREMENT, 
   c_name    varchar(255) NOT NULL, 
   country 	varchar(255) NOT NULL, 
-  city  	  varchar(255) NOT NULL, 
-  PRIMARY KEY (id)
+  city  	varchar(255) NOT NULL, 
+  PRIMARY KEY (club_id)
   );
   
   CREATE TABLE athletes (
-  id          int NOT NULL AUTO_INCREMENT, 
+  athlete_id          int NOT NULL AUTO_INCREMENT, 
   club_id     int NOT NULL, 
   first_name  varchar(255) NOT NULL, 
   last_name   varchar(255) NOT NULL, 
   birth       date NOT NULL, 
   nationality varchar(255) NOT NULL, 
   sex         enum('male','female') NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (club_id) REFERENCES clubs(id)
+  PRIMARY KEY (athlete_id),
+  FOREIGN KEY (club_id) REFERENCES clubs(club_id)
 );
 
 CREATE TABLE disciplines (
-  id          varchar(255) NOT NULL, 
+  discipline_id          varchar(255) NOT NULL, 
   sex         enum('male','female') NOT NULL,
   d_description varchar(1024) NOT NULL, 
-  PRIMARY KEY (id));
+  PRIMARY KEY (discipline_id));
   
   CREATE TABLE ranks (
-  rank_value 		    enum('international','continental','national','usual') NOT NULL,
+  rank_id			enum('international','continental','national','usual') NOT NULL,
   rank_description  varchar(255) NOT NULL, 
-  PRIMARY KEY (rank_value),
-  CHECK (rank_value IN (1,2,3,4))
+  PRIMARY KEY (rank_id),
+  CHECK (rank_id IN (1,2,3,4))
   );
   
   
 CREATE TABLE arenas (
-  id         int NOT NULL AUTO_INCREMENT, 
-  rank_value enum('international','continental','national','usual') NOT NULL,
+  arena_id         int NOT NULL AUTO_INCREMENT, 
+  rank_id enum('international','continental','national','usual') NOT NULL,
   country    char(255) NOT NULL, 
   city       char(255) NOT NULL, 
-  PRIMARY KEY (id),
-  FOREIGN KEY (rank_value) REFERENCES ranks(rank_value)
+  PRIMARY KEY (arena_id),
+  FOREIGN KEY (rank_id) REFERENCES ranks(rank_id)
   );
   
   
 CREATE TABLE meetings (
-  id             int NOT NULL AUTO_INCREMENT, 
-  rank_value     enum('international','continental','national','usual') NOT NULL,
-  arena_id       int  NOT NULL, 
-  m_date         date NOT NULL, 
-  m_description  varchar(255), 
-  PRIMARY KEY (id),
-  FOREIGN KEY (rank_value) REFERENCES ranks(rank_value),
-  FOREIGN KEY (arena_id) REFERENCES arenas(id)
+  meeting_id          int NOT NULL AUTO_INCREMENT, 
+  rank_id  enum('international','continental','national','usual') NOT NULL,
+  arena_id    int  NOT NULL, 
+  m_date      date NOT NULL, 
+  m_description varchar(255), 
+  PRIMARY KEY (meeting_id),
+  FOREIGN KEY (rank_id) REFERENCES ranks(rank_id),
+  FOREIGN KEY (arena_id) REFERENCES arenas(arena_id)
   );
   
   CREATE TABLE series (
-  id          	  int NOT NULL AUTO_INCREMENT, 
+  series_id       int NOT NULL AUTO_INCREMENT, 
   discipline_id   varchar(255) NOT NULL, 
   meeting_id      int NOT NULL, 
-  s_type		      enum('final','semi-final','quarter-final','1/8','1/16','elimination') NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (discipline_id) REFERENCES disciplines(id),
-  FOREIGN KEY (meeting_id) REFERENCES meetings(id)
+  s_type		  enum('final','semi-final','quarter-final','1/8','1/16','elimination') NOT NULL,
+  PRIMARY KEY (series_id),
+  FOREIGN KEY (discipline_id) REFERENCES disciplines(discipiline_id),
+  FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id)
   );
   
   CREATE TABLE jump_results (
-  id 			    int NOT NULL AUTO_INCREMENT,
+  jump_results_id 	int NOT NULL AUTO_INCREMENT,
   athlete_id 	int NOT NULL,
   series_id 	int NOT NULL,
-  result 		  decimal(5,3),
-  PRIMARY KEY(id),
-  FOREIGN KEY (athlete_id) REFERENCES athletes(id),
-  FOREIGN KEY (series_id) REFERENCES series(id)
+  result 		decimal(5,3),
+  PRIMARY KEY(jump_results_id),
+  FOREIGN KEY (athlete_id) REFERENCES athletes(athlete_id),
+  FOREIGN KEY (series_id) REFERENCES series(series_id)
   );
   
   CREATE TABLE track_results (
-  id 			    int NOT NULL AUTO_INCREMENT,
+  track_result_id 	int NOT NULL AUTO_INCREMENT,
   athlete_id 	int NOT NULL,
   series_id		int NOT NULL,
-  result 		  time(3),
-  PRIMARY KEY(id),
-  FOREIGN KEY (athlete_id) REFERENCES athletes(id),
-  FOREIGN KEY (series_id) REFERENCES series(id)
+  result 		time(3),
+  PRIMARY KEY(track_result_id),
+  FOREIGN KEY (athlete_id) REFERENCES athletes(athlete_id),
+  FOREIGN KEY (series_id) REFERENCES series(series_id)
   );
   
   CREATE TABLE signups (
-  athlete_id	  	int NOT NULL,
-  meeting_id		  int NOT NULL,
+  athlete_id		int NOT NULL,
+  meeting_id		int NOT NULL,
   discipline_id	 	varchar(255) NOT NULL,
   PRIMARY KEY(athlete_id, meeting_id, discipline_id),
-  FOREIGN KEY (athlete_id) REFERENCES athletes(id),
-  FOREIGN KEY (meeting_id) REFERENCES meetings(id),
-  FOREIGN KEY (discipline_id) REFERENCES disciplines(id)
+  FOREIGN KEY (athlete_id) REFERENCES athletes(athlete_id),
+  FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id),
+  FOREIGN KEY (discipline_id) REFERENCES disciplines(discipline_id)
   );
   
   CREATE TABLE limits (
-  meeting_id 		  int NOT NULL,
+  meeting_id 		int NOT NULL,
   discipline_id 	varchar(255) NOT NULL,
-  track_res 		  time(3),
-  jump_res 			  decimal(5,3),
+  track_res 		time(3),
+  jump_res 			decimal(5,3),
   PRIMARY KEY(meeting_id, discipline_id),
-  FOREIGN KEY (meeting_id) REFERENCES meetings(id),
-  FOREIGN KEY (discipline_id) REFERENCES disciplines(id)
+  FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id),
+  FOREIGN KEY (discipline_id) REFERENCES disciplines(discipline_id)
   );
+
   
