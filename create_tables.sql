@@ -33,8 +33,8 @@ CREATE TABLE disciplines (
   
   
 CREATE TABLE arenas (
-  arena_id         int NOT NULL AUTO_INCREMENT, 
-  rank_id enum('international','continental','national','usual') NOT NULL,
+  arena_id     varchar(255) NOT NULL, 
+  rank_id 		enum('international','continental','national','usual') NOT NULL,
   country    char(255) NOT NULL, 
   city       char(255) NOT NULL, 
   PRIMARY KEY (arena_id),
@@ -45,7 +45,7 @@ CREATE TABLE arenas (
 CREATE TABLE meetings (
   meeting_id          int NOT NULL AUTO_INCREMENT, 
   rank_id  enum('international','continental','national','usual') NOT NULL,
-  arena_id    int  NOT NULL, 
+  arena_id    varchar(255)  NOT NULL, 
   m_date      date NOT NULL, 
   m_description varchar(255), 
   PRIMARY KEY (meeting_id),
