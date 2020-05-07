@@ -59,7 +59,7 @@ CREATE TABLE meetings (
   meeting_id      int NOT NULL, 
   s_type		  enum('final','semi-final','quarter-final','1/8','1/16','elimination') NOT NULL,
   PRIMARY KEY (series_id),
-  FOREIGN KEY (discipline_id) REFERENCES disciplines(discipiline_id),
+  FOREIGN KEY (discipline_id) REFERENCES disciplines(discipline_id),
   FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id)
   );
   
@@ -103,4 +103,3 @@ CREATE TABLE meetings (
   FOREIGN KEY (discipline_id) REFERENCES disciplines(discipline_id)
   );
 
-  
