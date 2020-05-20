@@ -1,19 +1,19 @@
 CREATE OR REPLACE VIEW `athlete_track_results` AS
     SELECT 
-        a.first_name AS "Imie",
-        a.last_name AS "Nazwisko",
-        a.birth AS "Rocznik",
-        c.c_name AS "Klub",
-        d.discipline AS "Dyscyplina",
-		IF(d.sex = 'male','M','K') AS "Plec",
-        t.result AS "Wynik",
-		s.s_type AS "Seria",
-		m.m_description AS "Event",
-        m.m_date AS "Data",
-        ar.arena_id AS "Stadion",
-        ar.city AS "Stadion_miasto",
-		ar.country AS "Stadion_kraj",
-        r.rank_id AS "Ranga"
+        a.first_name AS "first_name",
+        a.last_name AS "last_name",
+        a.birth AS "birth_date",
+        c.c_name AS "club",
+        d.discipline AS "discipline",
+        IF(d.sex = 'male','M','F') AS "sex",
+        t.result AS "result",
+        m.m_date AS "meeting_date",
+        ar.arena_id AS "stadium",
+        ar.city AS "stadium_city",
+		ar.country AS "stadium_country",
+        r.rank_description AS "meeting_rank",
+        m.m_description AS "meeting",
+        s.s_type AS "series"
     FROM
         track_results t
         JOIN athletes a ON a.athlete_id = t.athlete_id
@@ -25,68 +25,67 @@ CREATE OR REPLACE VIEW `athlete_track_results` AS
         JOIN ranks r ON m.rank_id = r.rank_id;
 		
 CREATE OR REPLACE VIEW `athlete_jump_results` AS
-      SELECT 
-        a.first_name AS "Imie",
-        a.last_name AS "Nazwisko",
-        a.birth AS "Rocznik",
-        c.c_name AS "Klub",
-        d.discipline AS "Dyscyplina",
-		IF(d.sex = 'male','M','K') AS "Plec",
-        t.result AS "Wynik",
-		s.s_type AS "Seria",
-		m.m_description AS "Event",
-        m.m_date AS "Data",
-        ar.arena_id AS "Stadion",
-        ar.city AS "Stadion_miasto",
-		ar.country AS "Stadion_kraj",
-        r.rank_id AS "Ranga"
+    SELECT 
+        a.first_name AS "first_name",
+        a.last_name AS "last_name",
+        a.birth AS "birth_date",
+        c.c_name AS "club",
+        d.discipline AS "discipline",
+        IF(d.sex = 'male','M','F') AS "sex",
+        j.result AS "result",
+        m.m_date AS "meeting_date",
+        ar.arena_id AS "stadium",
+        ar.city AS "stadium_city",
+		ar.country AS "stadium_country",
+        r.rank_description AS "meeting_rank",
+        m.m_description AS "meeting",
+        s.s_type AS "series"
     FROM
-        jump_results t
-        JOIN athletes a ON a.athlete_id = t.athlete_id
+        jump_results j
+        JOIN athletes a ON a.athlete_id = j.athlete_id
         LEFT JOIN clubs c ON c.club_id = a.club_id
-        JOIN series s ON s.series_id = t.series_id
+        JOIN series s ON s.series_id = j.series_id
 		JOIN disciplines d ON d.discipline_id = s.discipline_id
         JOIN meetings m ON m.meeting_id = s.meeting_id
         JOIN arenas ar ON ar.arena_id = m.arena_id
         JOIN ranks r ON m.rank_id = r.rank_id;
 		
-		
 CREATE OR REPLACE VIEW `track_records` AS
 	SELECT
-		Dyscyplina,
-        Plec,
-		MIN(Wynik) AS "Rekord",
-		Imie,
-		Nazwisko,
-		Klub,
-		Seria,
-        Event,
-		Data,
-		Stadion,
-		Stadion_miasto,
-		Stadion_kraj,
-		Ranga
+		discipline,
+        sex,
+		MIN(result) AS "Record",
+		first_name,
+		last_name,
+		club,
+		meeting_date,
+		stadium,
+		stadium_city,
+		stadium_country,
+		meeting_rank,
+		meeting,
+		series
 	FROM 
 		athlete_track_results
 	GROUP BY
-		Dyscyplina, Plec;
+		discipline, sex;
 		
 CREATE OR REPLACE VIEW `jump_records` AS
-		SELECT
-		Dyscyplina,
-        Plec,
-		MAX(Wynik) AS "Rekord",
-		Imie,
-		Nazwisko,
-		Klub,
-		Seria,
-        Event,
-		Data,
-		Stadion,
-		Stadion_miasto,
-		Stadion_kraj,
-		Ranga
+	SELECT
+		discipline,
+        sex,
+		MAX(result) AS "Record",
+		first_name,
+		last_name,
+		club,
+		meeting_date,
+		stadium,
+		stadium_city,
+		stadium_country,
+		meeting_rank,
+		meeting,
+		series
 	FROM 
 		athlete_jump_results
 	GROUP BY
-		Dyscyplina, Plec;
+		discipline, sex;
