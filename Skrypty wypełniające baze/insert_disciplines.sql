@@ -3,7 +3,7 @@ INSERT INTO disciplines (discipline, sex, d_description)
  (w hali biega się 60 metrów), klasyczny bieg sprinterski. Rekordzistów świata na tym dystansie 
  określa się często mianem „najszybszego mężczyzny/najszybszej kobiety świata”. 
 Rywalizacja na tym dystansie przyciąga zawsze wiele uwagi.'),
-('100','female',
+('100m','female',
 'Najkrótszy dystans w biegach lekkoatletycznych na otwartym stadionie (w hali biega się 60 metrów), 
 klasyczny bieg sprinterski. Rekordzistów świata na tym dystansie określa się często mianem 
 „najszybszego mężczyzny/najszybszej kobiety świata”. 
