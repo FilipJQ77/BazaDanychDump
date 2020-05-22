@@ -205,8 +205,8 @@ FROM athletes
 WHERE athlete_id >= 46;
 
 INSERT INTO series (meeting_id, discipline_id, s_type) VALUES
-(1,21,'final'),
-(1,18,'final'),
+(1,23,'final'),
+(1,20,'final'),
 (1,1,'final'),
 (1,2,'final'),
 (1,10,'final'),
