@@ -1,3 +1,15 @@
+-- drop table if exists jump_results;
+-- drop table if exists limits;
+-- drop table if exists track_results;
+-- drop table if exists series;
+-- drop table if exists signups;
+-- drop table if exists meetings;
+-- drop table if exists arenas;
+-- drop table if exists athletes;
+-- drop table if exists clubs;
+-- drop table if exists disciplines;
+-- drop table if exists ranks;
+
 CREATE TABLE clubs (
   club_id      	int NOT NULL AUTO_INCREMENT, 
   c_name    varchar(255) NOT NULL, 
@@ -7,8 +19,8 @@ CREATE TABLE clubs (
   );
   
   CREATE TABLE athletes (
-  athlete_id          int NOT NULL AUTO_INCREMENT, 
-  club_id     int NOT NULL, 
+  athlete_id  int NOT NULL AUTO_INCREMENT, 
+  club_id     int, 
   first_name  varchar(255) NOT NULL, 
   last_name   varchar(255) NOT NULL, 
   birth       date NOT NULL, 
@@ -103,4 +115,3 @@ CREATE TABLE meetings (
   FOREIGN KEY (meeting_id) REFERENCES meetings(meeting_id),
   FOREIGN KEY (discipline_id) REFERENCES disciplines(discipline_id)
   );
-
