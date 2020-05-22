@@ -195,7 +195,7 @@ FROM athletes
 WHERE athlete_id >= 31;
 
 INSERT INTO signups (athlete_id, meeting_id, discipline_id)   
-SELECT athlete_id,1,23			# id 1000m M = 23
+SELECT athlete_id,1,9			# id 1000m M = 9
 FROM athletes
 WHERE athlete_id >= 38;
 
@@ -210,7 +210,7 @@ INSERT INTO series (meeting_id, discipline_id, s_type) VALUES
 (1,1,'final'),
 (1,2,'final'),
 (1,10,'final'),
-(1,23,'final'),
+(1,9,'final'),
 (1,5,'final');
 
 INSERT INTO jump_results (athlete_id, series_id, result) VALUES
