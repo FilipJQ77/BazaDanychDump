@@ -1,1 +1,0 @@
-Wysyłamy osobne pliki z poszczególnymi zadaniami (create database, functions, insert into tables etc.) oraz export z MySQL Workbench (lekkoatletyka.sql)
